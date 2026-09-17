@@ -18,7 +18,7 @@ class CategoryFilter extends StatefulWidget {
 }
 
 class _CategoryFilterState extends State<CategoryFilter> {
-  final List<String> categories = ["All", "Income", "Expense"];
+  final List<String> categories = ["Semua", "Pemasukan", "Pengeluaran"];
 
   @override
   Widget build(BuildContext context) {

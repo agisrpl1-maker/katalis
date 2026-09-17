@@ -17,7 +17,7 @@ int calculateBalance(
   for(var item in data){
 
 
-    if(item.type == "Income"){
+    if(item.type == "Pemasukan"){
 
 
       income += item.amount;
@@ -57,13 +57,13 @@ String checkBalanceStatus(
   if(calculateBalance(data) < 0){
 
 
-    return "Exceeds balance";
+    return "Melebihi saldo";
 
 
   }
 
 
-  return "Safe";
+  return "Aman";
 
 
 }

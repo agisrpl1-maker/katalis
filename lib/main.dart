@@ -27,7 +27,7 @@ class _CatalystAppState extends State<CatalystApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 
-      title: "Catalyst Cash Book",
+      title: "Buku Kas Katalis",
 
       theme: ThemeData(
         useMaterial3: true,

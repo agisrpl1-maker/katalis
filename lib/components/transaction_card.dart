@@ -17,7 +17,7 @@ class TransactionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool income = item.type == "Income";
+    bool income = item.type == "Pemasukan";
 
     return Card(
       elevation: 5,

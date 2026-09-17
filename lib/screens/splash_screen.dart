@@ -107,7 +107,7 @@ class _SplashScreenState extends State<SplashScreen>
                     ),
 
                     child: Image.asset(
-                      'lib/assets/catalyst_logo.png',
+                      'lib/assets/Logo Katalis.png',
                       height: 120,
                     ),
                   ),
@@ -115,7 +115,7 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 30),
 
                   const Text(
-                    "Catalyst",
+                    "Katalis",
 
                     style: TextStyle(
                       color: Colors.white,
@@ -129,7 +129,7 @@ class _SplashScreenState extends State<SplashScreen>
                   const SizedBox(height: 8),
 
                   const Text(
-                    "Grow your business smarter",
+                    "Tumbuhkan bisnis Anda lebih cerdas",
 
                     style: TextStyle(color: Colors.white70, fontSize: 16),
                   ),

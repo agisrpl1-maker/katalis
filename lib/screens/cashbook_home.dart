@@ -25,103 +25,103 @@ class CashBookHome extends StatefulWidget {
 class _CashBookHomeState extends State<CashBookHome> {
   final TextEditingController searchController = TextEditingController();
 
-  String selectedCategory = "All";
+  String selectedCategory = "Semua";
 
   final List<Transaction> transactions = [
     Transaction(
       description: "Basreng Tel Aviv",
 
-      type: "Income",
+      type: "Pemasukan",
 
-      category: "Sales",
+      category: "Penjualan",
 
       amount: 480000,
 
-      date: "12 August 2026",
+      date: "12 Agustus 2026",
     ),
 
     Transaction(
-      description: "Plastic container purchase",
+      description: "Pembelian wadah plastik",
 
-      type: "Expense",
+      type: "Pengeluaran",
 
-      category: "Shopping",
+      category: "Belanja",
 
       amount: 95000,
 
-      date: "13 August 2026",
+      date: "13 Agustus 2026",
     ),
 
     Transaction(
-      description: "Delivery fuel payment",
+      description: "Pembayaran bahan bakar pengiriman",
 
-      type: "Expense",
+      type: "Pengeluaran",
 
-      category: "Operational",
+      category: "Operasional",
 
       amount: 75000,
 
-      date: "14 August 2026",
+      date: "14 Agustus 2026",
     ),
 
     Transaction(
-      description: "Large customer order",
+      description: "Pesanan pelanggan besar",
 
-      type: "Income",
+      type: "Pemasukan",
 
-      category: "Sales",
+      category: "Penjualan",
 
       amount: 900000,
 
-      date: "15 August 2026",
+      date: "15 Agustus 2026",
     ),
 
     Transaction(
-      description: "Cleaning equipment",
+      description: "Peralatan kebersihan",
 
-      type: "Expense",
+      type: "Pengeluaran",
 
-      category: "Shopping",
+      category: "Belanja",
 
       amount: 65000,
 
-      date: "16 August 2026",
+      date: "16 Agustus 2026",
     ),
 
     Transaction(
-      description: "Online marketplace income",
+      description: "Pendapatan marketplace online",
 
-      type: "Income",
+      type: "Pemasukan",
 
-      category: "Sales",
+      category: "Penjualan",
 
       amount: 620000,
 
-      date: "17 August 2026",
+      date: "17 Agustus 2026",
     ),
 
     Transaction(
-      description: "Electricity payment",
+      description: "Pembayaran listrik",
 
-      type: "Expense",
+      type: "Pengeluaran",
 
-      category: "Operational",
+      category: "Operasional",
 
       amount: 180000,
 
-      date: "18 August 2026",
+      date: "18 Agustus 2026",
     ),
 
     Transaction(
-      description: "Weekend food sales",
+      description: "Penjualan makanan akhir pekan",
 
-      type: "Income",
+      type: "Pemasukan",
 
-      category: "Sales",
+      category: "Penjualan",
 
       amount: 760000,
 
-      date: "19 August 2026",
+      date: "19 Agustus 2026",
     ),
   ];
 
@@ -135,7 +135,7 @@ class _CashBookHomeState extends State<CashBookHome> {
   List<Transaction> get filteredTransactions {
     return transactions.where((item) {
       bool categoryMatch =
-          selectedCategory == "All" || item.type == selectedCategory;
+          selectedCategory == "Semua" || item.type == selectedCategory;
 
       bool searchMatch = item.description.toLowerCase().contains(
         searchController.text.toLowerCase(),
@@ -158,9 +158,9 @@ class _CashBookHomeState extends State<CashBookHome> {
         title: Row(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(10),
               child: Image.asset(
-                'lib/assets/catalyst_logo.png',
+                'lib/assets/Logo Katalis.png',
                 width: 38,
                 height: 38,
                 fit: BoxFit.cover,
@@ -173,9 +173,9 @@ class _CashBookHomeState extends State<CashBookHome> {
               crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-                Text("Catalyst", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("Katalis", style: TextStyle(fontWeight: FontWeight.bold)),
 
-                Text("Business Cash Book", style: TextStyle(fontSize: 12)),
+                Text("Buku Kas Usaha", style: TextStyle(fontSize: 12)),
               ],
             ),
           ],
@@ -203,7 +203,7 @@ class _CashBookHomeState extends State<CashBookHome> {
               },
 
               decoration: InputDecoration(
-                hintText: "Search transaction...",
+                hintText: "Cari transaksi...",
 
                 prefixIcon: const Icon(Icons.search),
 
@@ -236,7 +236,7 @@ class _CashBookHomeState extends State<CashBookHome> {
               child: Column(
                 children: [
                   const Text(
-                    "Catalyst Balance",
+                    "Saldo Katalis",
 
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
@@ -256,7 +256,7 @@ class _CashBookHomeState extends State<CashBookHome> {
                   ),
 
                   Text(
-                    "${data.length} transactions displayed",
+                    "${data.length} transaksi ditampilkan",
 
                     style: const TextStyle(color: Colors.white70),
                   ),
@@ -290,7 +290,7 @@ class _CashBookHomeState extends State<CashBookHome> {
                           const SizedBox(height: 10),
 
                           Text(
-                            "No transaction found",
+                            "Tidak ada transaksi ditemukan",
 
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
