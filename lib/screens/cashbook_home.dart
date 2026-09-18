@@ -137,13 +137,23 @@ class _CashBookHomeState extends State<CashBookHome> {
   }
 
   Future<void> _initializeAsync() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
+    try {
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    setState(() {
-      isLoading = false;
-    });
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      debugPrint("Gagal melakukan inisialisasi: $error");
+
+      if (!mounted) return;
+
+      setState(() {
+        isLoading = false;
+      });
+    }
   }
 
   @override

@@ -32,7 +32,15 @@ class _CategoryFilterState extends State<CategoryFilter> {
           selected: widget.selected == item,
 
           onSelected: (value) {
-            widget.onChanged(item);
+            if (item == "Semua") {
+              widget.onChanged("Semua");
+            } else if (item == "Pemasukan") {
+              widget.onChanged("Pemasukan");
+            } else if (item == "Pengeluaran") {
+              widget.onChanged("Pengeluaran");
+            } else {
+              widget.onChanged("Semua");
+            }
           },
         );
       }).toList(),
