@@ -45,13 +45,17 @@ class TransactionCard extends StatelessWidget {
                   child: Text(
                     item.description,
 
+                    maxLines: 2,
+
+                    overflow: TextOverflow.ellipsis,
+
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
 
-            const Spacer(),
+            const SizedBox(height: 12),
 
             Text(
               "Rp ${item.amount}",
@@ -65,7 +69,13 @@ class TransactionCard extends StatelessWidget {
               ),
             ),
 
-            Text("${item.category} • ${item.date}"),
+            Text(
+              "${item.category} • ${item.date}",
+
+              maxLines: 2,
+
+              overflow: TextOverflow.ellipsis,
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -98,5 +108,6 @@ class TransactionCard extends StatelessWidget {
     );
   }
 }
+
 //transaction card
 //01

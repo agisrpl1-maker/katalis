@@ -23,13 +23,15 @@ class CashBookHome extends StatefulWidget {
 }
 
 class _CashBookHomeState extends State<CashBookHome> {
-  final TextEditingController searchController = TextEditingController();
+  late final TextEditingController searchController;
 
   String selectedCategory = "Semua";
 
+  bool isLoading = true;
+
   final List<Transaction> transactions = [
     Transaction(
-      description: "Basreng Tel Aviv",
+      description: "Penjualan produk A",
 
       type: "Pemasukan",
 
@@ -126,6 +128,25 @@ class _CashBookHomeState extends State<CashBookHome> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+
+    searchController = TextEditingController();
+
+    _initializeAsync();
+  }
+
+  Future<void> _initializeAsync() async {
+    await Future<void>.delayed(const Duration(milliseconds: 300));
+
+    if (!mounted) return;
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
   void dispose() {
     searchController.dispose();
 
@@ -190,147 +211,156 @@ class _CashBookHomeState extends State<CashBookHome> {
         ],
       ),
 
-      body: Padding(
-        padding: const EdgeInsets.all(16),
+      body:
+          isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Padding(
+                padding: const EdgeInsets.all(16),
 
-        child: Column(
-          children: [
-            TextField(
-              controller: searchController,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: searchController,
 
-              onChanged: (value) {
-                setState(() {});
-              },
+                      onChanged: (value) {
+                        setState(() {});
+                      },
 
-              decoration: InputDecoration(
-                hintText: "Cari transaksi...",
+                      decoration: InputDecoration(
+                        hintText: "Cari transaksi...",
 
-                prefixIcon: const Icon(Icons.search),
+                        prefixIcon: const Icon(Icons.search),
 
-                filled: true,
+                        filled: true,
 
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(18),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(18),
 
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-
-            const SizedBox(height: 16),
-
-            // F3 TOP SUMMARY
-            Container(
-              width: double.infinity,
-
-              padding: const EdgeInsets.all(22),
-
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xff6A11CB), Color(0xff2575FC)],
-                ),
-
-                borderRadius: BorderRadius.circular(25),
-              ),
-
-              child: Column(
-                children: [
-                  const Text(
-                    "Saldo Katalis",
-
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  Text(
-                    "Rp ${calculateBalance(data)}",
-
-                    style: const TextStyle(
-                      color: Colors.white,
-
-                      fontSize: 30,
-
-                      fontWeight: FontWeight.bold,
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
                     ),
-                  ),
 
-                  Text(
-                    "${data.length} transaksi ditampilkan",
+                    const SizedBox(height: 16),
 
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                ],
-              ),
-            ),
+                    // F3 TOP SUMMARY
+                    Container(
+                      width: double.infinity,
 
-            const SizedBox(height: 16),
+                      padding: const EdgeInsets.all(22),
 
-            CategoryFilter(
-              selected: selectedCategory,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [Color(0xff6A11CB), Color(0xff2575FC)],
+                        ),
 
-              onChanged: (value) {
-                setState(() {
-                  selectedCategory = value;
-                });
-              },
-            ),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
 
-            const SizedBox(height: 16),
-
-            Expanded(
-              child: data.isEmpty
-                  ? Center(
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-
                         children: [
-                          const Icon(Icons.search_off, size: 70),
+                          const Text(
+                            "Saldo Katalis",
 
-                          const SizedBox(height: 10),
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+
+                          const SizedBox(height: 8),
 
                           Text(
-                            "Tidak ada transaksi ditemukan",
+                            "Rp ${calculateBalance(data)}",
 
-                            style: Theme.of(context).textTheme.titleMedium,
+                            style: const TextStyle(
+                              color: Colors.white,
+
+                              fontSize: 30,
+
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+
+                          Text(
+                            "${data.length} transaksi ditampilkan",
+
+                            style: const TextStyle(color: Colors.white70),
                           ),
                         ],
                       ),
-                    )
-                  : LayoutBuilder(
-                      builder: (context, constraints) {
-                        int columns = constraints.maxWidth < 600 ? 1 : 3;
+                    ),
 
-                        return GridView.builder(
-                          itemCount: data.length,
+                    const SizedBox(height: 16),
 
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: columns,
+                    CategoryFilter(
+                      selected: selectedCategory,
 
-                                crossAxisSpacing: 12,
-
-                                mainAxisSpacing: 12,
-
-                                childAspectRatio: columns == 1 ? 2.1 : 1.7,
-                              ),
-
-                          itemBuilder: (context, index) {
-                            return TransactionCard(
-                              item: data[index],
-
-                              onUpdate: () {
-                                setState(() {});
-                              },
-                            );
-                          },
-                        );
+                      onChanged: (value) {
+                        setState(() {
+                          selectedCategory = value;
+                        });
                       },
                     ),
-            ),
-          ],
-        ),
-      ),
+
+                    const SizedBox(height: 16),
+
+                    Expanded(
+                      child:
+                          data.isEmpty
+                              ? Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+
+                                  children: [
+                                    const Icon(Icons.search_off, size: 70),
+
+                                    const SizedBox(height: 10),
+
+                                    Text(
+                                      "Tidak ada transaksi ditemukan",
+
+                                      style:
+                                          Theme.of(
+                                            context,
+                                          ).textTheme.titleMedium,
+                                    ),
+                                  ],
+                                ),
+                              )
+                              : LayoutBuilder(
+                                builder: (context, constraints) {
+                                  int columns =
+                                      constraints.maxWidth < 600 ? 1 : 3;
+
+                                  return GridView.builder(
+                                    itemCount: data.length,
+
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: columns,
+
+                                          crossAxisSpacing: 12,
+
+                                          mainAxisSpacing: 12,
+
+                                          childAspectRatio:
+                                              columns == 1 ? 1.45 : 1.25,
+                                        ),
+
+                                    itemBuilder: (context, index) {
+                                      return TransactionCard(
+                                        item: data[index],
+
+                                        onUpdate: () {
+                                          setState(() {});
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                    ),
+                  ],
+                ),
+              ),
     );
   }
 }
